@@ -1,7 +1,11 @@
 # AssertJ support for Prometheus Metrics
 
+[![Maven Central](https://img.shields.io/maven-central/v/de.m3y.prometheus.assertj/assertj-prometheus.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.m3y.prometheus.assertj%22%20AND%20a%3A%22assertj-prometheus%22)
+
 This library provides AssertJ support for [Prometheus Java Client](https://github.com/prometheus/client_java) metrics,
 which simplifies testing your own (Java) exporters or own (Java) application exposed metrics.
+
+Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.1)
 
 ## Examples
 
@@ -10,12 +14,10 @@ which simplifies testing your own (Java) exporters or own (Java) application exp
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasTypeOfGauge()
-        .hasAnySamples()
-        .hasSampleSize(12)
         .hasSampleLabelNames("job_type", "app_name", "status")
         .hasSampleValue(
                 labelValues("A", "B", "C"),
-                10
+                10d
         )
         .hasSampleValue(
                 labelValues("X", "Y", "Z"),
@@ -32,12 +34,10 @@ assertThat(mfs)
         .hasSampleSize(12)
         .hasSampleLabelNames("label_a")
         .hasTypeOfSummary() // Required for following, summary specific asserts
-        .hasSampleValue(0.5 /* Quantile */, 10)
-        .hasSampleValue(0.9 /* Quantile */, 20)
         .hasSampleCountValue(labelValues("value_a"), 2)
         .hasSampleSumValue(labelValues("value_a"), 40)
-        .hasSampleCountValue(labelValues("value_b"), 2)
-        .hasSampleSumValue(labelValues("value_b"), 40)
+        .hasSampleValue(0.5 /* Quantile */, 10)
+        .hasSampleValue(0.9 /* Quantile */, 20)
         ...
 ```
 
@@ -54,9 +54,7 @@ assertThat(mfs)
         .hasSampleCountValue(labelValues("value_b"), 2)
         .hasSampleSumValue(labelValues("value_b"), 40)
         .hasSampleBucketValue(labelValues("value_a"), 10, 1) // Histogram bucket assertions
-        .hasSampleBucketValue(labelValues("value_a"), 20, 1)
         ...
-        .hasSampleBucketValue(labelValues("value_b"), Double.POSITIVE_INFINITY, 2)
         .hasSampleBucketValue(labelValues("value_b"), Double.POSITIVE_INFINITY, 2)
 ```
 
