@@ -11,7 +11,7 @@ Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/as
 
 ## Counter or Gauge
 Example for a Gauge or Counter:
-```
+```java
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasTypeOfGauge() // For a Counter: .hasTypeOfCounter()
@@ -28,7 +28,7 @@ assertThat(mfs)
 
 ### Summary
 Example for a Summary with sum, count and quantiles:
-```
+```java
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasSampleSize(12)
@@ -43,7 +43,7 @@ assertThat(mfs)
 
 ### Histogram
 Example for a Histogram with sum, count and buckets:
-```
+```java
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasSampleSize(12)
