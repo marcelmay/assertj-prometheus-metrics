@@ -10,10 +10,11 @@ Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/as
 ## Examples
 
 ## Counter or Gauge
+Example for a Gauge or Counter:
 ```
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
-        .hasTypeOfGauge()
+        .hasTypeOfGauge() // For a Counter: .hasTypeOfCounter()
         .hasSampleLabelNames("job_type", "app_name", "status")
         .hasSampleValue(
                 labelValues("A", "B", "C"),
@@ -26,8 +27,7 @@ assertThat(mfs)
 ```
 
 ### Summary
-A Summary contains sum and count sub metrics.
-
+Example for a Summary with sum, count and quantiles:
 ```
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
@@ -42,7 +42,7 @@ assertThat(mfs)
 ```
 
 ### Histogram
-Histogram contains sum, count and bucket sub metrics.
+Example for a Histogram with sum, count and buckets:
 ```
 Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
@@ -71,4 +71,4 @@ mvn clean install
 
 Licensed under [Apache 2.0 License](LICENSE)
 
-Copyright 2018+ Marcel May and project contributors.
+Copyright 2018-2019 Marcel May and project contributors.
