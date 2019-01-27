@@ -8,9 +8,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-/**
- *
- */
 public class CollectorRegistryUtilsTest {
     @Test
     public void testGetMetricFamilySamplesFromDefaultRegistry() {
