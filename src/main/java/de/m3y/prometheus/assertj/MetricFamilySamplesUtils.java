@@ -7,13 +7,13 @@ import io.prometheus.client.Collector;
 import io.prometheus.client.CollectorRegistry;
 
 /**
- * Helpers around CollectorRegistry handling.
+ * Helpers around MetricFamilySamples handling, such as for fetching MFS from {@link Collector} or {@link CollectorRegistry}.
  */
-public class CollectorRegistryUtils {
+public class MetricFamilySamplesUtils {
     /**
      * Prevent instantiation.
      */
-    private CollectorRegistryUtils() {
+    private MetricFamilySamplesUtils() {
         // Nothing
     }
 
@@ -42,8 +42,8 @@ public class CollectorRegistryUtils {
     /**
      * Gets a copy of MetricFamilySamples by its name from the given list of MetricFamiliySample.
      *
-     * @param metricFamilySamples  a list of MFS, eg provided by a {@link Collector#collect()}
-     * @param name              the name of the MFS.
+     * @param metricFamilySamples a list of MFS, eg provided by a {@link Collector#collect()}
+     * @param name                the name of the MFS.
      * @return the MFS found, or throws IllegalArgumentException if no MFS found.
      */
     public static Collector.MetricFamilySamples getMetricFamilySamples(List<Collector.MetricFamilySamples> metricFamilySamples, String name) {

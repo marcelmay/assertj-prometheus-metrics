@@ -6,7 +6,7 @@ import io.prometheus.client.Summary;
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.m3y.prometheus.assertj.CollectorRegistryUtils.getMetricFamilySamples;
+import static de.m3y.prometheus.assertj.MetricFamilySamplesUtils.getMetricFamilySamples;
 import static de.m3y.prometheus.assertj.MetricFamilySamplesAssert.assertThat;
 import static de.m3y.prometheus.assertj.MetricFamilySamplesAssert.labelValues;
 import static de.m3y.prometheus.assertj.MetricFamilySamplesAssertTest.expectAssertionError;

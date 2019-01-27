@@ -5,14 +5,57 @@
 This library provides AssertJ support for [Prometheus Java Client](https://github.com/prometheus/client_java) metrics,
 which simplifies testing your own (Java) exporters or own (Java) application exposed metrics.
 
-Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.1)
+Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.1). Add to your POM:
+```xml
+<dependency>
+    <groupId>de.m3y.prometheus.assertj</groupId>
+    <artifactId>assertj-prometheus</artifactId>
+    <version>0.1</version>
+    <scope>test</scope>
+</dependency>
+```
 
 ## Examples
 
-## Counter or Gauge
+A very simple example for [VersionInfoExports](https://github.com/prometheus/client_java/blob/master/simpleclient_hotspot/src/main/java/io/prometheus/client/hotspot/VersionInfoExports.java):
+```java
+VersionInfoExports versionInfoExports = new VersionInfoExports();
+
+// Verify jvm_info
+MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples(
+        versionInfoExports.collect(), "jvm_info");
+
+assertThat(mfs)
+        .hasTypeOfGauge()
+        .hasSampleLabelNames("version", "vendor", "runtime")
+        .hasSampleValue(
+                labelValues(
+                        System.getProperty("java.runtime.version", "unknown"),
+                        System.getProperty("java.vm.vendor", "unknown"),
+                        System.getProperty("java.runtime.name", "unknown")),
+                1d);
+```
+
+### Helpers
+Helpers for fetching a single MFS:
+```java
+Collector.MetricFamilySamples mfs;
+
+// From default registry CollectorRegistry.defaultRegistry
+mfs = MetricFamilySamplesUtils.getMetricFamilySamples("my_metric");
+
+// From specific registry
+mfs = MetricFamilySamplesUtils.getMetricFamilySamples( CollectorRegistry.defaultRegistry, "my_metric");
+
+// From collector aka exporter
+VersionInfoExports versionInfoExports = new VersionInfoExports();
+mfs = MetricFamilySamplesUtils.getMetricFamilySamples(versionInfoExports.collect(), "jvm_info");
+```
+
+### Counter or Gauge
 Example for a Gauge or Counter:
 ```java
-Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
+Collector.MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasTypeOfGauge() // For a Counter: .hasTypeOfCounter()
         .hasSampleLabelNames("job_type", "app_name", "status")
@@ -29,7 +72,7 @@ assertThat(mfs)
 ### Summary
 Example for a Summary with sum, count and quantiles:
 ```java
-Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
+Collector.MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasSampleSize(12)
         .hasSampleLabelNames("label_a")
@@ -44,7 +87,7 @@ assertThat(mfs)
 ### Histogram
 Example for a Histogram with sum, count and buckets:
 ```java
-Collector.MetricFamilySamples mfs = CollectorRegistryUtils.getMetricFamilySamples("my_metric");
+Collector.MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples("my_metric");
 assertThat(mfs)
         .hasSampleSize(12)
         .hasSampleLabelNames("label_a")

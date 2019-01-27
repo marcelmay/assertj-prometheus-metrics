@@ -73,6 +73,12 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_hotspot</artifactId>
+            <version>0.6.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
