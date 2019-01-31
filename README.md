@@ -5,6 +5,7 @@
 This library provides AssertJ support for [Prometheus Java Client](https://github.com/prometheus/client_java) metrics,
 which simplifies testing your own (Java) exporters or own (Java) application natively exposing metrics.
 
+## Download
 Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.2). Add to your POM:
 ```xml
 <dependency>
@@ -35,6 +36,8 @@ assertThat(mfs)
                         System.getProperty("java.runtime.name", "unknown")),
                 1d);
 ```
+
+For further examples, have a look at the [tests](src/test/java/de/m3y/prometheus/assertj/).
 
 ### Helpers
 Helpers for fetching a single MFS:
