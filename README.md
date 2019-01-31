@@ -3,14 +3,14 @@
 [![Maven Central](https://img.shields.io/maven-central/v/de.m3y.prometheus.assertj/assertj-prometheus.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.m3y.prometheus.assertj%22%20AND%20a%3A%22assertj-prometheus%22)
 
 This library provides AssertJ support for [Prometheus Java Client](https://github.com/prometheus/client_java) metrics,
-which simplifies testing your own (Java) exporters or own (Java) application exposed metrics.
+which simplifies testing your own (Java) exporters or own (Java) application natively exposing metrics.
 
-Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.1). Add to your POM:
+Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.2). Add to your POM:
 ```xml
 <dependency>
     <groupId>de.m3y.prometheus.assertj</groupId>
     <artifactId>assertj-prometheus</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <scope>test</scope>
 </dependency>
 ```
