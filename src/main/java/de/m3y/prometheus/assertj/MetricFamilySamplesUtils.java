@@ -1,5 +1,6 @@
 package de.m3y.prometheus.assertj;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,8 +47,14 @@ public class MetricFamilySamplesUtils {
      * @param name                the name of the MFS.
      * @return the MFS found, or throws IllegalArgumentException if no MFS found.
      */
-    public static Collector.MetricFamilySamples getMetricFamilySamples(List<Collector.MetricFamilySamples> metricFamilySamples, String name) {
+    public static Collector.MetricFamilySamples getMetricFamilySamples(
+            List<Collector.MetricFamilySamples> metricFamilySamples, String name) {
+        final String[] similiar = StringUtils.similiar(name,
+                metricFamilySamples.stream().map(o -> o.name).toArray(String[]::new), 5);
         return metricFamilySamples.stream().filter(mfs -> name.equals(mfs.name))
-                .findAny().orElseThrow(() -> new IllegalArgumentException("No MetricFamilySamples found by name " + name));
+                .findAny().orElseThrow(() -> {
+                    return new IllegalArgumentException("No MetricFamilySamples found by name " + name +
+                            " , closest names are " + Arrays.toString(similiar));
+                });
     }
 }
