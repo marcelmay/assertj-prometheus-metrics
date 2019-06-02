@@ -153,7 +153,7 @@ public abstract class AbstractMetricFamilySamplesAssert
                     valueAssert.apply(new DoubleAssert(sample.value));
                 } catch (AssertionError ae) {
                     failWithMessage("Unexpected value for %s{%s} : %s",
-                            actual.name,
+                            sampleName,
                             joinLabelNamesAndValues(labelNames, labelValues),
                             ae.getMessage());
                 }
