@@ -5,9 +5,16 @@ import java.util.Arrays;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
 /**
- *
+ * String helper such as for finding similar/closest matching strings.
  */
 public class StringUtils {
+    private StringUtils() {
+        // No instantiation
+    }
+
+    /**
+     * Note: This class has a natural ordering that is inconsistent with equals.
+     */
     private static class StringIntTupel implements Comparable<StringIntTupel> {
         String content;
         int distance;
@@ -32,9 +39,9 @@ public class StringUtils {
      * @param reference the reference value.
      * @param options   the available options.
      * @param n         limit the result to at most n option values.
-     * @return the top n most similiar options.
+     * @return the top n closest matching options.
      */
-    public static String[] similiar(String reference, String[] options, int n) {
+    public static String[] similar(String reference, String[] options, int n) {
         LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
         StringIntTupel[] values = new StringIntTupel[options.length];
         for (int i = 0; i < values.length; i++) {

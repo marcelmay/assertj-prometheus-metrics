@@ -49,7 +49,7 @@ public class MetricFamilySamplesUtils {
      */
     public static Collector.MetricFamilySamples getMetricFamilySamples(
             List<Collector.MetricFamilySamples> metricFamilySamples, String name) {
-        final String[] similiar = StringUtils.similiar(name,
+        final String[] similiar = StringUtils.similar(name,
                 metricFamilySamples.stream().map(o -> o.name).toArray(String[]::new), 5);
         return metricFamilySamples.stream().filter(mfs -> name.equals(mfs.name))
                 .findAny().orElseThrow(() -> {
