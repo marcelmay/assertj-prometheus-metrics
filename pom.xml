@@ -51,10 +51,6 @@
         <exporter.build.timestamp>${maven.build.timestamp}</exporter.build.timestamp>
     </properties>
 
-    <prerequisites> <!-- For version:display-plugin-updates -->
-        <maven>3.5</maven>
-    </prerequisites>
-
     <dependencies>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -144,6 +140,10 @@
                     <version>3.2.0</version>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M3</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>3.0.0-M1</version>
                 </plugin>
@@ -171,6 +171,24 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
