@@ -6,12 +6,12 @@ This library provides AssertJ support for [Prometheus Java Client](https://githu
 which simplifies testing your own (Java) exporters or own (Java) application natively exposing metrics.
 
 ## Download
-Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.2). Add to your POM:
+Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.4). Add to your POM:
 ```xml
 <dependency>
     <groupId>de.m3y.prometheus.assertj</groupId>
     <artifactId>assertj-prometheus</artifactId>
-    <version>0.2</version>
+    <version>0.4</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -105,7 +105,7 @@ assertThat(mfs)
 ```
 
 ## Building
-```
+```bash
 mvn clean install
 ```
 
@@ -117,4 +117,4 @@ mvn clean install
 
 Licensed under [Apache 2.0 License](LICENSE)
 
-Copyright 2018-2019 Marcel May and project contributors.
+Copyright 2018-2020 Marcel May and project contributors.
