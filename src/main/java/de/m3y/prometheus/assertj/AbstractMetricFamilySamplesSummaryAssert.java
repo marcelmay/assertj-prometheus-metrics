@@ -54,7 +54,7 @@ public abstract class AbstractMetricFamilySamplesSummaryAssert
      * @return {@code this} assertion object.
      */
     public SELF hasSampleValue(double quantile, double value) {
-        return hasSampleValue(Collections.emptyList(), quantile, da -> da.isEqualTo(value));
+        return hasSampleValue(Collections.emptyList(), quantile, da -> da.isEqualTo(Double.valueOf(value)));
     }
 
     /**
@@ -66,7 +66,7 @@ public abstract class AbstractMetricFamilySamplesSummaryAssert
      * @return {@code this} assertion object.
      */
     public SELF hasSampleValue(List<String> labelValues, double quantile, double value) {
-        return hasSampleValue(labelValues, quantile, da -> da.isEqualTo(value));
+        return hasSampleValue(labelValues, quantile, da -> da.isEqualTo(Double.valueOf(value)));
     }
 
     /**
