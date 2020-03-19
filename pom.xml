@@ -130,8 +130,8 @@
                     <configuration>
                         <detectLinks>true</detectLinks>
                         <links>
-                            <link>http://prometheus.github.io/client_java/</link>
-                            <link>http://joel-costigliola.github.io/assertj/core-8/api/</link>
+                            <link>https://prometheus.github.io/client_java/</link>
+                            <link>https://joel-costigliola.github.io/assertj/core-8/api/</link>
                         </links>
                     </configuration>
                 </plugin>
