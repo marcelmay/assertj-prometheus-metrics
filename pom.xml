@@ -4,7 +4,7 @@
 
     <groupId>de.m3y.prometheus.assertj</groupId>
     <artifactId>assertj-prometheus</artifactId>
-    <version>0.4</version>
+    <version>0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>AssertJ for Prometheus metrics</name>
 
@@ -17,7 +17,7 @@
         <developerConnection>scm:git:git@github.com:marcelmay/assertj-prometheus-metrics.git
         </developerConnection>
         <url>https://github.com/marcelmay/assertj-prometheus-metrics</url>
-        <tag>release-0.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
