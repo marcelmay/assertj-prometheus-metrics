@@ -7,12 +7,15 @@ import org.assertj.core.api.ThrowableAssert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.m3y.prometheus.assertj.MetricFamilySamplesUtils.getMetricFamilySamples;
+import java.util.concurrent.TimeUnit;
+
 import static de.m3y.prometheus.assertj.MetricFamilySamplesAssert.assertThat;
 import static de.m3y.prometheus.assertj.MetricFamilySamplesAssert.labelValues;
+import static de.m3y.prometheus.assertj.MetricFamilySamplesUtils.getMetricFamilySamples;
 import static io.prometheus.client.Collector.Type.*;
 import static io.prometheus.client.CollectorRegistry.defaultRegistry;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.within;
 
 public class MetricFamilySamplesAssertTest {
     @Before
@@ -90,7 +93,8 @@ public class MetricFamilySamplesAssertTest {
         Counter counter = Counter.build().name("testHasSampleSize").help("help")
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("testHasSampleSize");
-        assertThat(mfsCounter).hasSampleSize(1); // Without labels, there is always an initializing sample.
+        assertThat(mfsCounter).hasSampleSize(2); // Without labels, there is always an initializing sample,
+                                                 // plus for counter/summary/histogram  *_created
 
         // With labels
         Counter counterWithLabels = Counter.build().name("testHasSampleSize_withLabels").help("help")
@@ -98,13 +102,13 @@ public class MetricFamilySamplesAssertTest {
                 .create().register();
         assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(0);
         counterWithLabels.labels("a").inc();
-        assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(1);
+        assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(2);
         // Same label value does not increase samples
         counterWithLabels.labels("a").inc();
-        assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(1);
+        assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(2);
         // Different label value does increase samples
         counterWithLabels.labels("b").inc();
-        assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(2);
+        assertThat(getMetricFamilySamples("testHasSampleSize_withLabels")).hasSampleSize(4);
     }
 
     @Test
@@ -394,7 +398,7 @@ public class MetricFamilySamplesAssertTest {
 
         final MetricFamilySamples mfs = getMetricFamilySamples("testHistogram");
         assertThat(mfs)
-                .hasSampleSize(6)
+                .hasSampleSize(7)
                 .hasType(Collector.Type.HISTOGRAM)
                 .hasTypeOfHistogram()
                 .hasSampleBucketValue(10, 1)
@@ -402,7 +406,10 @@ public class MetricFamilySamplesAssertTest {
                 .hasSampleBucketValue(30, 4)
                 .hasSampleCountValue(4)
                 .hasSampleSumValue(80)
-        ;
+                .hasSampleCreatedValue(created -> created.isCloseTo(
+                        (double) TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()),
+                        within(2000.0))
+                );
     }
 
     @Test
@@ -421,7 +428,7 @@ public class MetricFamilySamplesAssertTest {
         // Verify
         final MetricFamilySamples mfs = getMetricFamilySamples("testExample");
         assertThat(mfs)
-                .hasSampleSize(12)
+                .hasSampleSize(14) // 2 label_a values * (3+1 buckets + 1 _created + _sum + _count)
                 .hasSampleLabelNames("label_a")
                 // Generic and equivalent to next line,
                 // but not returning specialisation for Summary or Histogram

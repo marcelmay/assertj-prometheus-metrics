@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StringUtilsTest {
     @Test
-    public void testSimiliar() {
+    public void testSimilar() {
         String[] candidates = StringUtils.similar("foo",
                 new String[]{"afoo", "foobar", "abcfooefg", "afooba","afoob"},
                 3);

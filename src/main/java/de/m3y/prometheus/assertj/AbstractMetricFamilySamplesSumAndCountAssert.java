@@ -1,11 +1,11 @@
 package de.m3y.prometheus.assertj;
 
+import io.prometheus.client.Collector;
+import org.assertj.core.api.DoubleAssert;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.function.UnaryOperator;
-
-import io.prometheus.client.Collector;
-import org.assertj.core.api.DoubleAssert;
 
 /**
  * AssertJ support for <code>{@link Collector.MetricFamilySamples}</code> extension for sum and count,
@@ -80,7 +80,6 @@ public abstract class AbstractMetricFamilySamplesSumAndCountAssert
      *
      * @param valueAssert the expected count value.
      * @return {@code this} assertion object.
-     * @see #hasSampleCountValue(double)
      */
     public SELF hasSampleCountValue(UnaryOperator<? super DoubleAssert> valueAssert) {
         return hasSampleCountValue(Collections.emptyList(), valueAssert);
@@ -92,7 +91,7 @@ public abstract class AbstractMetricFamilySamplesSumAndCountAssert
      * @param labelValues the expected label values.
      * @param value       the expected count value.
      * @return {@code this} assertion object.
-     * @see #hasSampleCountValue(double)
+     * @see #hasSampleCountValue(UnaryOperator)
      */
     public SELF hasSampleCountValue(List<String> labelValues, double value) {
         return hasSampleCountValue(labelValues, da -> da.isEqualTo(value));
@@ -104,11 +103,55 @@ public abstract class AbstractMetricFamilySamplesSumAndCountAssert
      * @param labelValues the expected label values.
      * @param valueAssert the expected count value.
      * @return {@code this} assertion object.
-     * @see #hasSampleCountValue(double)
+     * @see #hasSampleCountValue(UnaryOperator)
      */
     public SELF hasSampleCountValue(
             List<String> labelValues,
             UnaryOperator<? super DoubleAssert> valueAssert) {
         return hasSampleValue(actual.name + "_count", labelValues, valueAssert);
+    }
+
+    /**
+     * Verifies the _created value for a Histogram, Summary or Count type metric.
+     *
+     * @param value the expected _created value.
+     * @return {@code this} assertion object.
+     */
+    public SELF hasSampleCreatedValue(double value) {
+        return hasSampleCreatedValue(da -> da.isEqualTo(value));
+    }
+
+    /**
+     * Verifies the _created value for a Histogram, Summary or Count type metric.
+     *
+     * @param valueAssert the expected _created value.
+     * @return {@code this} assertion object.
+     * @see #hasSampleCreatedValue(UnaryOperator)
+     */
+    public SELF hasSampleCreatedValue(UnaryOperator<? super DoubleAssert> valueAssert) {
+        return hasSampleCreatedValue(Collections.emptyList(), valueAssert);
+    }
+
+    /**
+     * Verifies the _created value for a Histogram, Summary or Count type metric.
+     *
+     * @param labelValues the expected label values.
+     * @param value       the expected _created value.
+     * @return {@code this} assertion object.
+     * @see #hasSampleCreatedValue(UnaryOperator)
+     */
+    public SELF hasSampleCreatedValue(List<String> labelValues, double value) {
+        return hasSampleCreatedValue(labelValues, da -> da.isEqualTo(value));
+    }
+
+    /**
+     * Verifies the _created value for a Histogram, Summary or Count type metric.
+     *
+     * @param valueAssert the expected created value.
+     * @return {@code this} assertion object.
+     * @see #hasSampleCreatedValue(UnaryOperator)
+     */
+    public SELF hasSampleCreatedValue(List<String> labelValues, UnaryOperator<? super DoubleAssert> valueAssert) {
+        return hasSampleValue(actual.name + "_created", labelValues, valueAssert);
     }
 }

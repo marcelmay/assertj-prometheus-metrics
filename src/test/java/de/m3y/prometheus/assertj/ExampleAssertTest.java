@@ -17,15 +17,16 @@ public class ExampleAssertTest {
 
         // Verify jvm_info
         MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples(
-                versionInfoExports.collect(), "jvm_info");
+                versionInfoExports.collect(), "jvm");
         assertThat(mfs)
-                .hasTypeOfGauge()
-                .hasSampleLabelNames("version", "vendor", "runtime")
+                .hasTypeOfInfo()
+                .hasSampleLabelNames("vendor", "runtime", "version")
                 .hasSampleValue(
                         labelValues(
-                                System.getProperty("java.runtime.version", "unknown"),
+                                System.getProperty("java.runtime.name", "unknown"),
                                 System.getProperty("java.vm.vendor", "unknown"),
-                                System.getProperty("java.runtime.name", "unknown")),
+                                System.getProperty("java.runtime.version", "unknown")
+                        ),
                         1d);
     }
 }

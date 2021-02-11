@@ -27,6 +27,18 @@ public class MetricFamilySamplesAssert extends AbstractMetricFamilySamplesAssert
     }
 
     /**
+     * Asserts that the MFS is of type Info.
+     * <p>
+     * Returns a specialization with additional asserts for MFS of type Info.
+     *
+     * @return SELF
+     */
+    public MetricFamilySamplesCounterAndGaugeAssert hasTypeOfInfo() {
+        // TODO?
+        return new MetricFamilySamplesCounterAndGaugeAssert(hasType(Collector.Type.INFO).actual);
+    }
+
+    /**
      * Asserts that the MFS is of type Counter.
      * <p>
      * Returns a specialization with additional asserts for MFS of type Counter or Gauge.

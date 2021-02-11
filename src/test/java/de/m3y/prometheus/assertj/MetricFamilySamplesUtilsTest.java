@@ -45,7 +45,7 @@ public class MetricFamilySamplesUtilsTest {
     @Test
     public void testGetMetricFamilySamplesWithCollector() {
         VersionInfoExports versionInfoExports = new VersionInfoExports();
-        String name = "jvm_info";
+        String name = "jvm";
         Collector.MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples(versionInfoExports.collect(), name);
         assertThat(mfs).isNotNull();
         assertThat(mfs.name).isEqualTo(name);

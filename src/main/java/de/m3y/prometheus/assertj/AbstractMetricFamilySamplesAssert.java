@@ -1,13 +1,13 @@
 package de.m3y.prometheus.assertj;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.function.UnaryOperator;
-
 import io.prometheus.client.Collector;
 import io.prometheus.client.Collector.MetricFamilySamples;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.DoubleAssert;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.function.UnaryOperator;
 
 /**
  * AssertJ generic support for MetricFamilySamples.
@@ -113,10 +113,14 @@ public abstract class AbstractMetricFamilySamplesAssert
         String sampleName = actual.name;
         if (actual.type == Collector.Type.SUMMARY || actual.type == Collector.Type.HISTOGRAM) {
             sampleName += "_count";
+        } else if (actual.type == Collector.Type.COUNTER) {
+            sampleName += "_total";
+        } else if (actual.type == Collector.Type.INFO) {
+            sampleName += "_info";
         }
-        final List<String> actuallabelNames = getLabelNames(actual, sampleName);
+        final List<String> actualLabelNames = getLabelNames(actual, sampleName);
         try {
-            org.assertj.core.api.Assertions.assertThat(actuallabelNames).containsExactlyInAnyOrder(labelNames);
+            org.assertj.core.api.Assertions.assertThat(actualLabelNames).containsExactlyInAnyOrder(labelNames);
         } catch (AssertionError ae) {
             if (labelNames.length == 0) {
                 failWithMessage("Expected MetricFamilySamples's %s samples to have no labels: %s ",
@@ -138,12 +142,20 @@ public abstract class AbstractMetricFamilySamplesAssert
         isNotNull();
         hasAnySamples();
 
+        // Counter names have _total postfix
+        String effectiveSampleName = sampleName;
+        if (this.actual.type == Collector.Type.COUNTER) {
+            effectiveSampleName += "_total";
+        } else if (this.actual.type == Collector.Type.INFO) {
+            effectiveSampleName += "_info";
+        }
+
         // Check if sample exist
-        final List<String> labelNames = getLabelNames(actual, sampleName);
-        MetricFamilySamples.Sample sample = findSample(sampleName, labelNames, labelValues);
+        final List<String> labelNames = getLabelNames(actual, effectiveSampleName);
+        MetricFamilySamples.Sample sample = findSample(effectiveSampleName, labelNames, labelValues);
         if (null == sample) {
             failWithMessage("Expected %s{%s} sample in samples :\n%s",
-                    sampleName,
+                    effectiveSampleName,
                     joinLabelNamesAndValues(labelNames, labelValues),
                     toPrettyString(actual.samples));
         } else {
@@ -153,7 +165,7 @@ public abstract class AbstractMetricFamilySamplesAssert
                     valueAssert.apply(new DoubleAssert(sample.value));
                 } catch (AssertionError ae) {
                     failWithMessage("Unexpected value for %s{%s} : %s",
-                            sampleName,
+                            effectiveSampleName,
                             joinLabelNamesAndValues(labelNames, labelValues),
                             ae.getMessage());
                 }
@@ -225,6 +237,7 @@ public abstract class AbstractMetricFamilySamplesAssert
         for (Collector.MetricFamilySamples.Sample sample : metricFamilySamples.samples) {
             // Extract labels from first sample matched by name
             if (sampleName.equals(sample.name)) {
+
                 return sample.labelNames;
             }
         }
