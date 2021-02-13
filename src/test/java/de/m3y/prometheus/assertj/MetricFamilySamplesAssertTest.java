@@ -25,7 +25,7 @@ public class MetricFamilySamplesAssertTest {
 
     @Test
     public void testHasTypeOf() {
-        Counter counter = Counter.build().name("counter_metric").help("help")
+        Counter.build().name("counter_metric").help("help")
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("counter_metric");
         assertThat(mfsCounter).hasType(COUNTER).hasTypeOfCounter();
@@ -36,7 +36,7 @@ public class MetricFamilySamplesAssertTest {
         expectAssertionError(() -> assertThat(mfsCounter).hasType(HISTOGRAM));
         expectAssertionError(() -> assertThat(mfsCounter).hasTypeOfHistogram());
 
-        Gauge gauge = Gauge.build().name("gauge_metric").help("help")
+        Gauge.build().name("gauge_metric").help("help")
                 .create().register();
         MetricFamilySamples mfsGauge = getMetricFamilySamples("gauge_metric");
         expectAssertionError(() -> assertThat(mfsGauge).hasType(COUNTER));
@@ -46,7 +46,7 @@ public class MetricFamilySamplesAssertTest {
         expectAssertionError(() -> assertThat(mfsGauge).hasType(HISTOGRAM));
         expectAssertionError(() -> assertThat(mfsGauge).hasTypeOfHistogram());
 
-        Summary summary = Summary.build().name("summary_metric").help("help")
+        Summary.build().name("summary_metric").help("help")
                 .create().register();
         MetricFamilySamples mfsSummary = getMetricFamilySamples("summary_metric");
         expectAssertionError(() -> assertThat(mfsSummary).hasType(COUNTER));
@@ -56,7 +56,7 @@ public class MetricFamilySamplesAssertTest {
         expectAssertionError(() -> assertThat(mfsSummary).hasType(HISTOGRAM));
         expectAssertionError(() -> assertThat(mfsSummary).hasTypeOfHistogram());
 
-        Histogram histogram = Histogram.build().name("histogram_metric").help("help")
+        Histogram.build().name("histogram_metric").help("help")
                 .create().register();
         MetricFamilySamples mfsHistogram = getMetricFamilySamples("histogram_metric");
         expectAssertionError(() -> assertThat(mfsHistogram).hasType(COUNTER));
@@ -70,7 +70,7 @@ public class MetricFamilySamplesAssertTest {
     @Test
     public void testHasAnySample() {
         // Without labels
-        Counter counter = Counter.build().name("testHasAnySample").help("help")
+        Counter.build().name("testHasAnySample").help("help")
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("testHasAnySample");
         assertThat(mfsCounter).hasAnySamples();
@@ -90,7 +90,7 @@ public class MetricFamilySamplesAssertTest {
     @Test
     public void testHasSampleSize() {
         // Without labels
-        Counter counter = Counter.build().name("testHasSampleSize").help("help")
+        Counter.build().name("testHasSampleSize").help("help")
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("testHasSampleSize");
         assertThat(mfsCounter).hasSampleSize(2); // Without labels, there is always an initializing sample,
@@ -114,7 +114,7 @@ public class MetricFamilySamplesAssertTest {
     @Test
     public void testHasSampleLabels() {
         // Without labels
-        Counter counter = Counter.build().name("testHasSampleLabels").help("help")
+        Counter.build().name("testHasSampleLabels").help("help")
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("testHasSampleLabels");
         assertThat(mfsCounter).hasSampleLabelNames(); // No labels
@@ -136,7 +136,7 @@ public class MetricFamilySamplesAssertTest {
 
     @Test
     public void testHasSampleValueWithoutLabels() {
-        Counter counter = Counter.build().name("testHasSampleValueWithoutLabels").help("help")
+        Counter.build().name("testHasSampleValueWithoutLabels").help("help")
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("testHasSampleValueWithoutLabels");
         assertThat(mfsCounter)
@@ -150,10 +150,10 @@ public class MetricFamilySamplesAssertTest {
     }
 
     @Test
-    public void testSummmaryHasSampleValueWithoutLabels() {
-        Summary summary = Summary.build().name("testSummmaryHasSampleValueWithoutLabels").help("help")
+    public void testSummaryHasSampleValueWithoutLabels() {
+        Summary.build().name("testSummaryHasSampleValueWithoutLabels").help("help")
                 .create().register();
-        MetricFamilySamples mfsSummary = getMetricFamilySamples("testSummmaryHasSampleValueWithoutLabels");
+        MetricFamilySamples mfsSummary = getMetricFamilySamples("testSummaryHasSampleValueWithoutLabels");
         assertThat(mfsSummary)
                 .hasTypeOfSummary()
                 .hasSampleCountValue(0)
@@ -168,7 +168,7 @@ public class MetricFamilySamplesAssertTest {
 
     @Test
     public void testHistogramHasSampleValueWithoutLabels() {
-        Histogram histogram = Histogram.build().name("testHistogramHasSampleValueWithoutLabels").help("help")
+        Histogram.build().name("testHistogramHasSampleValueWithoutLabels").help("help")
                 .buckets(1, 5)
                 .create().register();
         MetricFamilySamples mfsHistogram = getMetricFamilySamples("testHistogramHasSampleValueWithoutLabels");
@@ -229,12 +229,12 @@ public class MetricFamilySamplesAssertTest {
     }
 
     @Test
-    public void testSummmaryHasSampleValueWithLabels() {
-        Summary summary = Summary.build().name("testSummmaryHasSampleValueWithtLabels").help("help")
+    public void testSummaryHasSampleValueWithLabels() {
+        Summary summary = Summary.build().name("testSummaryHasSampleValueWithLabels").help("help")
                 .labelNames("label")
                 .create().register();
         summary.labels("foo").observe(42d);
-        MetricFamilySamples mfsSummary = getMetricFamilySamples("testSummmaryHasSampleValueWithtLabels");
+        MetricFamilySamples mfsSummary = getMetricFamilySamples("testSummaryHasSampleValueWithLabels");
         assertThat(mfsSummary)
                 .hasTypeOfSummary()
                 .hasSampleLabelNames("label")
@@ -296,7 +296,7 @@ public class MetricFamilySamplesAssertTest {
 
     @Test
     public void testInfo() {
-        Info info = Info.build().name("testInfo").help("help")
+        Info.build().name("testInfo").help("help")
                 .create().register();
 
         MetricFamilySamples mfs = getMetricFamilySamples("testInfo");

@@ -13,7 +13,7 @@ public class MetricFamilySamplesUtilsTest {
     @Test
     public void testGetMetricFamilySamplesFromDefaultRegistry() {
         String name = "testGetMetricFamilySamplesFromDefaultRegistry";
-        Counter counter = Counter.build()
+        Counter.build()
                 .name(name).help("example counter")
                 .create().register();
 
@@ -29,7 +29,7 @@ public class MetricFamilySamplesUtilsTest {
     public void testGetMetricFamilySamples() {
         CollectorRegistry collectorRegistry = new CollectorRegistry();
         String name = "testGetMetricFamilySamples";
-        Counter counter = Counter.build()
+        Counter.build()
                 .name(name).help("example counter")
                 .create().register(collectorRegistry);
 

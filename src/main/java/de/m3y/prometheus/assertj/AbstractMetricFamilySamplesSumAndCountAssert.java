@@ -147,6 +147,7 @@ public abstract class AbstractMetricFamilySamplesSumAndCountAssert
     /**
      * Verifies the _created value for a Histogram, Summary or Count type metric.
      *
+     * @param labelValues the expected label values.
      * @param valueAssert the expected created value.
      * @return {@code this} assertion object.
      * @see #hasSampleCreatedValue(UnaryOperator)

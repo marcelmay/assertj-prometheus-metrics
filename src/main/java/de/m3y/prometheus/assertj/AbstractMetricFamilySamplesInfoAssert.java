@@ -1,6 +1,7 @@
 package de.m3y.prometheus.assertj;
 
 import io.prometheus.client.Collector;
+import org.assertj.core.api.AbstractDoubleAssert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,7 @@ public abstract class AbstractMetricFamilySamplesInfoAssert
      * @return {@code this} assertion object.
      */
     public SELF hasSampleValue(String... labelValues) {
-        return hasSampleValue(actual.name, Arrays.asList(labelValues), doubleAssert -> doubleAssert.isOne());
+        return hasSampleValue(actual.name, Arrays.asList(labelValues), AbstractDoubleAssert::isOne);
     }
 
     /**
@@ -33,6 +34,6 @@ public abstract class AbstractMetricFamilySamplesInfoAssert
      * @return {@code this} assertion object.
      */
     public SELF hasSampleValue(List<String> labelValues) {
-        return hasSampleValue(actual.name, labelValues, doubleAssert -> doubleAssert.isOne());
+        return hasSampleValue(actual.name, labelValues, AbstractDoubleAssert::isOne);
     }
 }

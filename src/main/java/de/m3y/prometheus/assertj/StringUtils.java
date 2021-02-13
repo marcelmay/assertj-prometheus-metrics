@@ -34,7 +34,7 @@ public class StringUtils {
     }
 
     /**
-     * Finds the top N similiar options for a given reference.
+     * Finds the top N similar options for a given reference.
      *
      * @param reference the reference value.
      * @param options   the available options.

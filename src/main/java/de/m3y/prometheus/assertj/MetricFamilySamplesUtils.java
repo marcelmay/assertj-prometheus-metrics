@@ -1,11 +1,11 @@
 package de.m3y.prometheus.assertj;
 
+import io.prometheus.client.Collector;
+import io.prometheus.client.CollectorRegistry;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import io.prometheus.client.Collector;
-import io.prometheus.client.CollectorRegistry;
 
 /**
  * Helpers around MetricFamilySamples handling, such as for fetching MFS from {@link Collector} or {@link CollectorRegistry}.
@@ -41,7 +41,7 @@ public class MetricFamilySamplesUtils {
     }
 
     /**
-     * Gets a copy of MetricFamilySamples by its name from the given list of MetricFamiliySample.
+     * Gets a copy of MetricFamilySamples by its name from the given list of MetricFamilySample.
      *
      * @param metricFamilySamples a list of MFS, eg provided by a {@link Collector#collect()}
      * @param name                the name of the MFS.
@@ -49,12 +49,11 @@ public class MetricFamilySamplesUtils {
      */
     public static Collector.MetricFamilySamples getMetricFamilySamples(
             List<Collector.MetricFamilySamples> metricFamilySamples, String name) {
-        final String[] similiar = StringUtils.similar(name,
+        final String[] similar = StringUtils.similar(name,
                 metricFamilySamples.stream().map(o -> o.name).toArray(String[]::new), 5);
         return metricFamilySamples.stream().filter(mfs -> name.equals(mfs.name))
-                .findAny().orElseThrow(() -> {
-                    return new IllegalArgumentException("No MetricFamilySamples found by name " + name +
-                            " , closest names are " + Arrays.toString(similiar));
-                });
+                .findAny().orElseThrow(() -> new IllegalArgumentException(
+                        "No MetricFamilySamples found by name " + name +
+                                " , closest names are " + Arrays.toString(similar)));
     }
 }
