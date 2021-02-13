@@ -1,9 +1,9 @@
 package de.m3y.prometheus.assertj;
 
+import io.prometheus.client.Collector;
+
 import java.util.Arrays;
 import java.util.List;
-
-import io.prometheus.client.Collector;
 
 /**
  * AssertJ support for <code>{@link io.prometheus.client.Collector.MetricFamilySamples}</code> metrics.
@@ -17,6 +17,7 @@ import io.prometheus.client.Collector;
  * }</pre>
  */
 public class MetricFamilySamplesAssert extends AbstractMetricFamilySamplesAssert<MetricFamilySamplesAssert> {
+
     /**
      * Should not be directly instantiated. Use {@link #assertThat(Collector.MetricFamilySamples)}.
      *
@@ -33,9 +34,8 @@ public class MetricFamilySamplesAssert extends AbstractMetricFamilySamplesAssert
      *
      * @return SELF
      */
-    public MetricFamilySamplesCounterAndGaugeAssert hasTypeOfInfo() {
-        // TODO?
-        return new MetricFamilySamplesCounterAndGaugeAssert(hasType(Collector.Type.INFO).actual);
+    public MetricFamilySamplesInfoAssert hasTypeOfInfo() {
+        return new MetricFamilySamplesInfoAssert(hasType(Collector.Type.INFO).actual);
     }
 
     /**

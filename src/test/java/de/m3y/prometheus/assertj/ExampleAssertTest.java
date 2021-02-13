@@ -26,7 +26,6 @@ public class ExampleAssertTest {
                                 System.getProperty("java.runtime.name", "unknown"),
                                 System.getProperty("java.vm.vendor", "unknown"),
                                 System.getProperty("java.runtime.version", "unknown")
-                        ),
-                        1d);
+                        ));
     }
 }

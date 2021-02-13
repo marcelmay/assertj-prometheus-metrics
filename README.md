@@ -24,17 +24,16 @@ VersionInfoExports versionInfoExports = new VersionInfoExports();
 
 // Verify jvm_info
 MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples(
-        versionInfoExports.collect(), "jvm_info");
-
+        versionInfoExports.collect(), "jvm");
 assertThat(mfs)
-        .hasTypeOfGauge()
-        .hasSampleLabelNames("version", "vendor", "runtime")
+        .hasTypeOfInfo()
+        .hasSampleLabelNames("vendor", "runtime", "version")
         .hasSampleValue(
                 labelValues(
-                        System.getProperty("java.runtime.version", "unknown"),
+                        System.getProperty("java.runtime.name", "unknown"),
                         System.getProperty("java.vm.vendor", "unknown"),
-                        System.getProperty("java.runtime.name", "unknown")),
-                1d);
+                        System.getProperty("java.runtime.version", "unknown")
+                ));
 ```
 
 For further examples, have a look at the [tests](src/test/java/de/m3y/prometheus/assertj/).
@@ -52,7 +51,23 @@ mfs = MetricFamilySamplesUtils.getMetricFamilySamples( CollectorRegistry.default
 
 // From collector aka exporter
 VersionInfoExports versionInfoExports = new VersionInfoExports();
-mfs = MetricFamilySamplesUtils.getMetricFamilySamples(versionInfoExports.collect(), "jvm_info");
+mfs = MetricFamilySamplesUtils.getMetricFamilySamples(versionInfoExports.collect(), "jvm");
+```
+
+### Info
+Example for Info:
+```java
+Info info = Info.build().name("testInfo").help("help")
+        .labelNames("version", "vendor")
+        .create().register();
+...
+Collector.MetricFamilySamples mfs = MetricFamilySamplesUtils.getMetricFamilySamples("testInfo");
+assertThat(mfs)
+        .hasType(INFO)
+        .hasTypeOfInfo()
+        .hasSampleSize(1)
+        .hasSampleValue("A", "B"); // Checks if label values exist-
+                                   // typically values are your build info version 
 ```
 
 ### Counter or Gauge

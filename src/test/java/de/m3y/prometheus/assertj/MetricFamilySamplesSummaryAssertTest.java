@@ -19,7 +19,7 @@ public class MetricFamilySamplesSummaryAssertTest {
     }
 
     @Test
-    public void testSummmaryHasSampleValue() {
+    public void testSummaryHasSampleValue() {
         Summary summary = Summary.build().name("testSummaryHasSampleValue").help("help")
                 .quantile(0.5, 0.05)
                 .quantile(0.9, 0.01)

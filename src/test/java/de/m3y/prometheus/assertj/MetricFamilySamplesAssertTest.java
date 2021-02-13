@@ -94,7 +94,7 @@ public class MetricFamilySamplesAssertTest {
                 .create().register();
         MetricFamilySamples mfsCounter = getMetricFamilySamples("testHasSampleSize");
         assertThat(mfsCounter).hasSampleSize(2); // Without labels, there is always an initializing sample,
-                                                 // plus for counter/summary/histogram  *_created
+        // plus for counter/summary/histogram  *_created
 
         // With labels
         Counter counterWithLabels = Counter.build().name("testHasSampleSize_withLabels").help("help")
@@ -294,6 +294,35 @@ public class MetricFamilySamplesAssertTest {
                 .hasTypeOfHistogram().hasSampleBucketValue(labelValues("foo"), 2, da -> da.isEqualTo(0)));
     }
 
+    @Test
+    public void testInfo() {
+        Info info = Info.build().name("testInfo").help("help")
+                .create().register();
+
+        MetricFamilySamples mfs = getMetricFamilySamples("testInfo");
+        assertThat(mfs)
+                .hasType(INFO)
+                .hasTypeOfInfo()
+                .hasSampleSize(1)
+                .hasSampleValue(); // No label
+    }
+
+    @Test
+    public void testInfoWithLabels() {
+        Info info = Info.build().name("testInfo").help("help")
+                .labelNames("version", "vendor")
+                .create().register();
+        String versionValue = "1.2.3";
+        String vendorValue = "Acme";
+        info.labels(versionValue, vendorValue).info();
+
+        MetricFamilySamples mfs = getMetricFamilySamples("testInfo");
+        assertThat(mfs)
+                .hasType(INFO)
+                .hasTypeOfInfo()
+                .hasSampleSize(1)
+                .hasSampleValue(versionValue, vendorValue);
+    }
 
     @Test
     public void testCounter() {
