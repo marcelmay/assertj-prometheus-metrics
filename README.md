@@ -1,6 +1,6 @@
 # AssertJ support for Prometheus Metrics
 
-[![Maven Central](https://img.shields.io/maven-central/v/de.m3y.prometheus.assertj/assertj-prometheus.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.m3y.prometheus.assertj%22%20AND%20a%3A%22assertj-prometheus%22)
+[![Maven Central](https://img.shields.io/maven-central/v/de.m3y.prometheus.assertj/assertj-prometheus.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.m3y.prometheus.assertj%22%20AND%20a%3A%22assertj-prometheus%22) [![javadoc](https://javadoc.io/badge2/de.m3y.prometheus.assertj/assertj-prometheus/javadoc.svg)](https://javadoc.io/doc/de.m3y.prometheus.assertj/assertj-prometheus)
 
 This library provides AssertJ support for [Prometheus Java Client](https://github.com/prometheus/client_java) metrics,
 which simplifies testing your own (Java) exporters or own (Java) application natively exposing metrics.
@@ -11,7 +11,7 @@ Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/as
 <dependency>
     <groupId>de.m3y.prometheus.assertj</groupId>
     <artifactId>assertj-prometheus</artifactId>
-    <version>0.4</version>
+    <version>0.5</version>
     <scope>test</scope>
 </dependency>
 ```
