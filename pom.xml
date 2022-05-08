@@ -28,7 +28,7 @@
     <licenses>
         <license>
             <name>Apache 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
@@ -130,7 +130,7 @@
                     <configuration>
                         <links>
                             <link>https://prometheus.github.io/client_java/</link>
-                            <link>http://www.javadoc.io/doc/org.assertj/assertj-core/</link>
+                            <link>https://www.javadoc.io/doc/org.assertj/assertj-core/</link>
                         </links>
                     </configuration>
                 </plugin>

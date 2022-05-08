@@ -11,7 +11,7 @@ Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/as
 <dependency>
     <groupId>de.m3y.prometheus.assertj</groupId>
     <artifactId>assertj-prometheus</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -66,8 +66,8 @@ assertThat(mfs)
         .hasType(INFO)
         .hasTypeOfInfo()
         .hasSampleSize(1)
-        .hasSampleValue("A", "B"); // Checks if label values exist-
-                                   // typically values are your build info version 
+        .hasSampleValue("A", "B"); // Checks if label values exist -
+                                   // typical values are your build info version 
 ```
 
 ### Counter or Gauge
@@ -132,4 +132,4 @@ mvn clean install
 
 Licensed under [Apache 2.0 License](LICENSE)
 
-Copyright 2018-2020 Marcel May and project contributors.
+Copyright 2018-2022 Marcel May and project contributors.

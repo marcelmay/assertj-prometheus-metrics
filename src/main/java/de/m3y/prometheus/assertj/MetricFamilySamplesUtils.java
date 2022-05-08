@@ -43,7 +43,7 @@ public class MetricFamilySamplesUtils {
     /**
      * Gets a copy of MetricFamilySamples by its name from the given list of MetricFamilySample.
      *
-     * @param metricFamilySamples a list of MFS, eg provided by a {@link Collector#collect()}
+     * @param metricFamilySamples a list of MFS, e.g. provided by a {@link Collector#collect()}
      * @param name                the name of the MFS.
      * @return the MFS found, or throws IllegalArgumentException if no MFS found.
      */

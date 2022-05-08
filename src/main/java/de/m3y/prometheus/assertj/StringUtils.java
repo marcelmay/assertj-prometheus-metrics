@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
 /**
- * String helper such as for finding similar/closest matching strings.
+ * String helper such as for finding similar/the closest matching strings.
  */
 public class StringUtils {
     private StringUtils() {
@@ -39,7 +39,7 @@ public class StringUtils {
      * @param reference the reference value.
      * @param options   the available options.
      * @param n         limit the result to at most n option values.
-     * @return the top n closest matching options.
+     * @return the top n the closest matching options.
      */
     public static String[] similar(String reference, String[] options, int n) {
         LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
