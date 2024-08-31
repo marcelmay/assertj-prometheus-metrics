@@ -6,19 +6,20 @@ This library provides AssertJ support for [Prometheus Java Client](https://githu
 which simplifies testing your own (Java) exporters or own (Java) application natively exposing metrics.
 
 ## Download
-Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/) (GAV: de.m3y.prometheus.assertj:assertj-prometheus:0.5). Add to your POM:
+Available on [Maven Central](https://repo1.maven.org/maven2/de/m3y/prometheus/assertj/assertj-prometheus/)
+(GAV: de.m3y.prometheus.assertj:assertj-prometheus:VERSION):
 ```xml
 <dependency>
     <groupId>de.m3y.prometheus.assertj</groupId>
     <artifactId>assertj-prometheus</artifactId>
-    <version>0.6</version>
+    <version>VERSION</version>
     <scope>test</scope>
 </dependency>
 ```
 
 ## Examples
 
-A very simple example for [VersionInfoExports](https://github.com/prometheus/client_java/blob/master/simpleclient_hotspot/src/main/java/io/prometheus/client/hotspot/VersionInfoExports.java):
+A basic example for [VersionInfoExports](https://github.com/prometheus/client_java/blob/master/simpleclient_hotspot/src/main/java/io/prometheus/client/hotspot/VersionInfoExports.java):
 ```java
 VersionInfoExports versionInfoExports = new VersionInfoExports();
 

@@ -82,7 +82,7 @@ public abstract class AbstractMetricFamilySamplesAssert
     /**
      * Verifies the number of samples.
      * <p>
-     * Note: Metrics without labels have always one sample.
+     * Note: Metrics without labels always have one sample.
      *
      * @param size the number of samples.
      * @return {@code this} assertion object.
@@ -92,8 +92,7 @@ public abstract class AbstractMetricFamilySamplesAssert
 
         if (null == actual.samples) {
             failWithMessage("Expected MetricFamilySamples's %s samples <%s> but was null", actual.name);
-        }
-        if (actual.samples.size() != size) {
+        } else if (actual.samples.size() != size) {
             failWithMessage("Expected MetricFamilySamples's %s samples with size %s but is with size %s .\nSamples are :\n%s",
                     actual.name, size, actual.samples.size(), toPrettyString(actual.samples));
         }
@@ -150,7 +149,7 @@ public abstract class AbstractMetricFamilySamplesAssert
             effectiveSampleName += "_info";
         }
 
-        // Check if sample exist
+        // Check if sample exists
         final List<String> labelNames = getLabelNames(actual, effectiveSampleName);
         MetricFamilySamples.Sample sample = findSample(effectiveSampleName, labelNames, labelValues);
         if (null == sample) {

@@ -460,7 +460,7 @@ public class MetricFamilySamplesAssertTest {
                 .hasSampleSize(14) // 2 label_a values * (3+1 buckets + 1 _created + _sum + _count)
                 .hasSampleLabelNames("label_a")
                 // Generic and equivalent to next line,
-                // but not returning specialisation for Summary or Histogram
+                // but not returning specialization for Summary or Histogram
                 .hasType(Collector.Type.HISTOGRAM)
                 // Same as above. Returns specialization for Histogram
                 // enabling asserting bucket-, count- and sum-values
