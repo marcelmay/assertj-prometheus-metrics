@@ -132,4 +132,4 @@ mvn clean install
 
 Licensed under [Apache 2.0 License](LICENSE)
 
-Copyright 2018-2022 Marcel May and project contributors.
+Copyright 2018-2024 Marcel May and project contributors.
